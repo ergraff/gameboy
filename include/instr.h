@@ -1,4 +1,4 @@
-#include "op.c"
+#include "instr.c"
 
 void nop();
 

@@ -3,7 +3,7 @@
 #include <stdio.h>
 #endif
 
-#include "op.h"
+#include "instr.h"
 #include "gb.h"
 
 int main(int argc, char **argv) {
