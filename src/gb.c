@@ -4,6 +4,8 @@
 #include <stdint.h>
 #endif
 
+#include "cpu.h"
+
 // -------- End of includes --------
  
 // -------- Memory definitions --------
@@ -48,11 +50,11 @@
 #define INTR4       0x0058
 #define INTR5       0x0060
 
-// -------- End of emory definitions --------
+// -------- End of memory definitions --------
 
 // -------- Gameboy definitions --------
 /*
-  Struct to hole the Gameboy device
+  Struct to hold the Gameboy device
 */
 
 typedef struct Gameboy {
@@ -62,22 +64,9 @@ typedef struct Gameboy {
   uint8_t mem[MEM_SIZE];
 
   /*
-    Registers
+    CPU
   */
-  uint8_t A;
-  uint8_t B;
-  uint8_t C;
-  uint8_t D;
-  uint8_t E;
-  uint8_t F;
-  uint8_t H;
-  uint8_t L;
-
-  /*
-    Pointers
-  */
-  uint16_t SP;
-  uint16_t PC;
+  CPU cpu;
 
 } Gameboy;
 

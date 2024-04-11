@@ -3,7 +3,6 @@
 #include <stdio.h>
 #endif
 
-#include "instr.h"
 #include "gb.h"
 
 int main(int argc, char **argv) {

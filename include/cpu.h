@@ -1,5 +1,11 @@
-#include "instr.c"
+#include "cpu.c"
 
+// -------- CPU prototype --------
+struct CPU;
+
+// -------- End of CPU prototype --------
+
+// -------- Instructions prototypes --------
 void nop();
 
 void ld();
@@ -48,3 +54,5 @@ void push();
 void pop();
 
 void rst();
+
+// -------- End of instructions prototypes --------
