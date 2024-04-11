@@ -59,17 +59,25 @@ typedef struct Gameboy {
   /*
     Memory
   */
-  uint16_t mem[MEM_SIZE];
+  uint8_t mem[MEM_SIZE];
 
   /*
     Registers
   */
-  uint16_t AF; // A and F
-  uint16_t BC; // B and C
-  uint16_t DE; // D and E
-  uint16_t HL; // H and L
-  uint16_t SP; // Stack pointer
-  uint16_t PC; // Program counter
+  uint8_t A;
+  uint8_t B;
+  uint8_t C;
+  uint8_t D;
+  uint8_t E;
+  uint8_t F;
+  uint8_t H;
+  uint8_t L;
+
+  /*
+    Pointers
+  */
+  uint16_t SP;
+  uint16_t PC;
 
 } Gameboy;
 
