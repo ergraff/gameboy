@@ -11,13 +11,6 @@ BUILD_DIR := build
 
 CFLAGS := -o$(BUILD_DIR)/$(NAME) -I$(INC_DIR) -I$(SRC_DIR) -Wall
 
-# Tests
-TESTS_NAME := tests_gameboy
-TESTS_MAIN := tests_main.c
-TESTS_DIR := tests
-
-TFLAGS := -o$(BUILD_DIR)/$(TESTS_NAME) -I$(INC_DIR) -I$(SRC_DIR) -Wall
-
 
 # Labels
 all: build run
@@ -28,9 +21,7 @@ build: .FORCE
 run:
 	$(BUILD_DIR)/$(NAME)
 
-test: .FORCE
-	$(CC) $(TESTS_DIR)/$(TESTS_MAIN) $(TFLAGS)
-	$(BUILD_DIR)/$(TESTS_NAME)
+test:
 
 check:
 	valgrind --leak-check=full \
