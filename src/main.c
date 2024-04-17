@@ -8,4 +8,5 @@
 int main(int argc, char **argv) {
   printf("Hello, world!\n");
   Gameboy gameboy;
+  load_dmg_rom(&gameboy, 0x0000);
 }

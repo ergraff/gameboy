@@ -71,3 +71,37 @@ typedef struct Gameboy {
 } Gameboy;
 
 // -------- End of Gameboy definitions --------
+
+// -------- Functions --------
+void load_dmg_rom(Gameboy *gb, uint16_t offset) {
+  FILE *fptr;
+  size_t rom_len = 256;
+  uint8_t rom[256] = {0};
+
+  // Open ROM
+  char *file = "./bin/DMG_ROM.bin";
+  fptr = fopen(file, "rb");
+  if (fptr == NULL) {
+    printf("Could not read file '%s'\n", file);
+  }
+
+  // Read ROM
+  fread(rom, rom_len, 1, fptr);
+
+  // Write ROM to GB memory
+  for (int i = 0; i < rom_len; i++) {
+    gb->mem[offset + i] = rom[i];
+  }
+
+  fclose(fptr);
+
+  // DEBUG Print ROM
+  for (int i = 0; i < rom_len; i++) {
+    uint8_t r = gb->mem[offset + i];
+    printf("%02hhX ", r);
+  }
+  printf("\n");
+
+}
+
+// -------- End of functions --------
