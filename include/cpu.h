@@ -7,6 +7,7 @@ struct CPU;
 
 // -------- Function prototypes --------
 CPU cpu_initialize();
+uint8_t fetch_op(CPU *cpu, uint8_t *mem);
 
 // -------- End of function prototypes --------
 

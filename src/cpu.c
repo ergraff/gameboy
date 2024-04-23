@@ -39,6 +39,13 @@ CPU cpu_initialize() {
   return cpu;
 }
 
+uint8_t fetch_op(CPU *cpu, uint8_t *mem) {
+  uint16_t addr = cpu->PC;
+  uint8_t op = mem[addr];
+  cpu->PC++;
+  return op;
+}
+
 // -------- End of functions --------
 
 // -------- Instructions definitions --------
