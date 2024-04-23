@@ -15,6 +15,6 @@ struct Gameboy;
 
 // -------- Function prototypes --------
 Gameboy gameboy_initialize();
-void load_dmg_rom(Gameboy *gb, uint16_t offset);
+void load_dmg_rom(Gameboy *gb);
 
 // -------- End of function prototypes --------

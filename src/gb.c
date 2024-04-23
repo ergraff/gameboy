@@ -78,7 +78,7 @@ Gameboy gameboy_initialize() {
   return gameboy;
 }
 
-void load_dmg_rom(Gameboy *gb, uint16_t offset) {
+void load_dmg_rom(Gameboy *gb) {
   FILE *fptr;
   size_t rom_len = 256;
   uint8_t rom[256] = {0};
@@ -95,14 +95,14 @@ void load_dmg_rom(Gameboy *gb, uint16_t offset) {
 
   // Write ROM to GB memory
   for (int i = 0; i < rom_len; i++) {
-    gb->mem[offset + i] = rom[i];
+    gb->mem[i] = rom[i];
   }
 
   fclose(fptr);
 
   // DEBUG Print ROM
   for (int i = 0; i < rom_len; i++) {
-    uint8_t r = gb->mem[offset + i];
+    uint8_t r = gb->mem[i];
     printf("%02hhX ", r);
   }
   printf("\n");
