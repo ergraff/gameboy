@@ -33,6 +33,14 @@ typedef struct CPU {
   
 } CPU;
 
+// -------- Functions --------
+CPU cpu_initialize() {
+  CPU cpu = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  return cpu;
+}
+
+// -------- End of functions --------
+
 // -------- Instructions definitions --------
 void nop() {}
 

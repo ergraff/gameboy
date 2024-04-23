@@ -5,6 +5,11 @@ struct CPU;
 
 // -------- End of CPU prototype --------
 
+// -------- Function prototypes --------
+CPU cpu_initialize();
+
+// -------- End of function prototypes --------
+
 // -------- Instructions prototypes --------
 void nop();
 

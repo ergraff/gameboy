@@ -73,6 +73,11 @@ typedef struct Gameboy {
 // -------- End of Gameboy definitions --------
 
 // -------- Functions --------
+Gameboy gameboy_initialize() {
+  Gameboy gameboy = {{0}, cpu_initialize()};
+  return gameboy;
+}
+
 void load_dmg_rom(Gameboy *gb, uint16_t offset) {
   FILE *fptr;
   size_t rom_len = 256;
