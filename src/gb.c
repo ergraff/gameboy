@@ -59,7 +59,6 @@
 /*
   Struct to hold the Gameboy device
 */
-
 typedef struct Gameboy {
   /*
     Memory
@@ -89,11 +88,17 @@ typedef struct Gameboy {
 // -------- End of Gameboy definitions --------
 
 // -------- Functions --------
+/*
+  Returns a zeroed instance of the Gameboy struct
+*/
 Gameboy initialize() {
   Gameboy gameboy = {{0}, 0, 0, 0,0, 0, 0, 0, 0, 0, 0};
   return gameboy;
 }
 
+/*
+  Loads the bootstrap DMB_ROM.bin into memory starting from 0x0000
+*/
 int load_dmg_rom(Gameboy *gb) {
   FILE *fptr;
   size_t rom_len = 256;
@@ -129,6 +134,9 @@ int load_dmg_rom(Gameboy *gb) {
   return 0;
 }
 
+/*
+  Returns the value at the location of the current program counter
+*/
 uint8_t pc_val(Gameboy *gb) {
   uint16_t addr = gb->PC;
   uint8_t op = gb->mem[addr];
@@ -207,6 +215,9 @@ int perform_instruction(Gameboy *gb) {
   return res;
 }
 
+/*
+  Starts running the commands located in memory
+*/
 int run(Gameboy *gb) {
   // Read instructions until end
   while (pc_val(gb) != 0) {
