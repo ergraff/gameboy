@@ -16,7 +16,7 @@ struct Gameboy;
 // -------- Function prototypes --------
 Gameboy initialize();
 int load_dmg_rom(Gameboy *gb);
-uint8_t read_op(Gameboy *gb);
+uint8_t current_instruction(Gameboy *gb);
 
 // -------- End of function prototypes --------
 

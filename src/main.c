@@ -11,6 +11,6 @@ int main(int argc, char **argv) {
 
   printf("\n\n");
 
-  printf("%02hhX ", read_op(&gameboy));
+  printf("%02hhX ", current_instruction(&gameboy));
   printf("\n");
 }

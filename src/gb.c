@@ -122,7 +122,7 @@ int load_dmg_rom(Gameboy *gb) {
   return 0;
 }
 
-uint8_t read_op(Gameboy *gb) {
+uint8_t current_instruction(Gameboy *gb) {
   uint16_t addr = gb->PC;
   uint8_t op = gb->mem[addr];
   return op;
