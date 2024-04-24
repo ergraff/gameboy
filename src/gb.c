@@ -78,7 +78,7 @@ Gameboy gameboy_initialize() {
   return gameboy;
 }
 
-void load_dmg_rom(Gameboy *gb) {
+int load_dmg_rom(Gameboy *gb) {
   FILE *fptr;
   size_t rom_len = 256;
   uint8_t rom[256] = {0};
@@ -88,6 +88,7 @@ void load_dmg_rom(Gameboy *gb) {
   fptr = fopen(file, "rb");
   if (fptr == NULL) {
     printf("Could not read file '%s'\n", file);
+    return 1;
   }
 
   // Read ROM
@@ -107,6 +108,7 @@ void load_dmg_rom(Gameboy *gb) {
   }
   printf("\n");
 
+  return 0;
 }
 
 // -------- End of functions --------
