@@ -158,6 +158,15 @@ int perform_instruction(Gameboy *gb) {
   // Check instruction
   switch (instr) {
 
+    // 0x21 LD HL,n16
+    case 0x21:
+      args[0] = pc_val(gb);
+      gb->PC++;
+      args[1] = pc_val(gb);
+      gb->PC++;
+      _21_ld_hl_n16(&gb->H, &gb->L, args);
+      break;
+
     // 0x31 LD SP,n16
     case 0x31:
       args[0] = pc_val(gb);

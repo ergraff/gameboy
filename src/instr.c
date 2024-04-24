@@ -8,6 +8,22 @@
 
 // -------- Instructions definitions --------
 
+// 0x21 LD HL,n16
+void _21_ld_hl_n16(uint8_t *h, uint8_t *l, uint8_t *args) {
+  // Get values
+  uint8_t low = args[0];
+  uint8_t high = args[1];
+
+  // Perform operation
+  *h = high;
+  *l = low;
+
+  #ifdef DEBUG
+  // Print instruction
+  printf("LD HL,%02X%02X (HL=%02X%02X)\t", high, low, *h, *l);
+  #endif
+}
+
 // 0x31 LD SP,n16
 void _31_ld_sp_n16(uint16_t *sp, uint8_t *args) {
   // Form n16 value, Big Endian to Small Endian
