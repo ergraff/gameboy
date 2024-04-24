@@ -169,12 +169,11 @@ int perform_instruction(Gameboy *gb) {
   }
 
   // DEBUG Print instruction and arguments
-  printf("%02hhX\t", instr); 
-  printf("%02hhX, %02hhX\n", args[0], args[1]);
+  printf("%02X %02X %02X\n", instr, args[0], args[1]);
 
   // Check return message
   if (res > 0) {
-    printf("Instruction '%02hhX' has not been defined!\n", instr);
+    printf("Instruction '%02X' has not been defined!\n", instr);
   }
 
   return res;
