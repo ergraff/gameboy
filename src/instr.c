@@ -32,6 +32,24 @@ void _31_ld_sp_n16(uint16_t *sp, uint8_t *args) {
   #endif
 }
 
+// 0x32 LD [HL-],A
+void _32_ld_hld_a(uint8_t *mem, uint8_t *h, uint8_t *l, uint8_t *a) {
+  uint16_t low = (uint16_t) *l;
+  uint16_t high = (uint16_t) *h;
+  uint16_t addr = (high << 8) | low;
+  mem[addr] = *a;
+
+  uint16_t addr_new = addr - 1;
+  uint8_t low_new = (uint8_t) addr_new;
+  uint8_t high_new = (uint8_t) (addr_new >> 8);
+  *h = high_new;
+  *l = low_new;
+
+  #ifdef DEBUG
+  printf("LD [HL-],A (*[HL]=%02X, HL:%04X->%04X, H=%02X, L=%02X)\t", mem[addr], addr, addr_new, *h, *l);
+  #endif  
+}
+
 // 0xAF XOR A
 void _af_xor_a(uint8_t *a) {
   *a = *a ^ *a; 

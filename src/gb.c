@@ -184,6 +184,11 @@ int perform_instruction(Gameboy *gb) {
       _31_ld_sp_n16(&gb->SP, args);
       break;
 
+    // 0x32 LD [HL-],A
+    case 0x32:
+      _32_ld_hld_a(gb->mem, &gb->H, &gb->L, &gb->A);
+      break;
+
     // 0xAF XOR A
     case 0xAF:
       _af_xor_a(&gb->A);
