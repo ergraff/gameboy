@@ -9,8 +9,9 @@ int main(int argc, char **argv) {
   Gameboy gameboy = initialize();
   load_dmg_rom(&gameboy);
 
-  printf("\n\n");
-
-  printf("%02hhX ", current_instruction(&gameboy));
   printf("\n");
+
+  run(&gameboy);
+
+  return 0;
 }

@@ -133,16 +133,67 @@ uint8_t current_instruction(Gameboy *gb) {
   return op;
 }
 
+/*
+  The function that reads and delegates the current instruction to their individual functions
+*/
+int perform_instruction(Gameboy *gb) {
+  int res = 0;
 
+  // Read current instruction
+  uint8_t instr = current_instruction(gb);
 
+  // DEBUG Print current memory location
+  printf("0x%04hhX: ", gb->PC);
 
+  // Advance program counter
+  gb->PC++;
 
+  // Array to hold arguments
+  uint8_t args[2] = {0};
 
+  // Check instruction
+  switch (instr) {
 
+    // 0x31 LD SP,n16
+    case 0x31:
+      args[0] = current_instruction(gb);
+      gb->PC++;
+      args[1] = current_instruction(gb);
+      gb->PC++;
+      break;
 
+    // Default case, the instruction has not been defined.
+    default:
+      res = 1;
+      break;
+  }
 
+  // DEBUG Print instruction and arguments
+  printf("%02hhX\t", instr); 
+  printf("%02hhX, %02hhX\n", args[0], args[1]);
 
+  // Check return message
+  if (res > 0) {
+    printf("Instruction '%02hhX' has not been defined!\n", instr);
+  }
 
+  return res;
+}
 
+int run(Gameboy *gb) {
+  // Read instructions until end
+  while (current_instruction(gb) != 0) {
+    // Perform instruction
+    int res = perform_instruction(gb);
+
+    // Read return result
+    if (res > 0) {
+      // Something went wrong
+      printf("Something went wrong, exiting...\n");
+      break;
+    }
+  }
+  return 0;
+}
 
 // -------- End of functions --------

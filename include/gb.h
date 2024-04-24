@@ -17,5 +17,7 @@ struct Gameboy;
 Gameboy initialize();
 int load_dmg_rom(Gameboy *gb);
 uint8_t current_instruction(Gameboy *gb);
+int perform_instruction(Gameboy *gb);
+int run(Gameboy *gb);
 
 // -------- End of function prototypes --------
