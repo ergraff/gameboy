@@ -127,7 +127,7 @@ int load_dmg_rom(Gameboy *gb) {
   return 0;
 }
 
-uint8_t current_instruction(Gameboy *gb) {
+uint8_t pc_val(Gameboy *gb) {
   uint16_t addr = gb->PC;
   uint8_t op = gb->mem[addr];
   return op;
@@ -140,7 +140,7 @@ int perform_instruction(Gameboy *gb) {
   int res = 0;
 
   // Read current instruction
-  uint8_t instr = current_instruction(gb);
+  uint8_t instr = pc_val(gb);
 
   // DEBUG Print current memory location
   printf("0x%04hhX: ", gb->PC);
@@ -156,9 +156,9 @@ int perform_instruction(Gameboy *gb) {
 
     // 0x31 LD SP,n16
     case 0x31:
-      args[0] = current_instruction(gb);
+      args[0] = pc_val(gb);
       gb->PC++;
-      args[1] = current_instruction(gb);
+      args[1] = pc_val(gb);
       gb->PC++;
       break;
 
@@ -182,7 +182,7 @@ int perform_instruction(Gameboy *gb) {
 
 int run(Gameboy *gb) {
   // Read instructions until end
-  while (current_instruction(gb) != 0) {
+  while (pc_val(gb) != 0) {
     // Perform instruction
     int res = perform_instruction(gb);
 
