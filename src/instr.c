@@ -10,7 +10,7 @@
 
 // 0x31 LD SP,n16
 void _31_ld_sp_n16(uint16_t *sp, uint8_t *instr, uint8_t *args) {
-  // Form n16 value
+  // Form n16 value, Big Endian to Small Endian
   uint16_t a = (uint16_t) args[0];
   uint16_t b = (uint16_t) args[1];
   uint16_t arg = (b << 8) | a;
@@ -18,8 +18,10 @@ void _31_ld_sp_n16(uint16_t *sp, uint8_t *instr, uint8_t *args) {
   // Perform instruction
   *sp = arg;
 
+  #ifdef DEBUG
   // Print instruction
   printf("LD SP,%04X (SP=%04X)\t", arg, *sp);
+  #endif
 }
 
 // -------- End of instructions definitions --------

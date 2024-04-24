@@ -117,12 +117,14 @@ int load_dmg_rom(Gameboy *gb) {
 
   fclose(fptr);
 
-  // DEBUG Print ROM
+  #ifdef DEBUG
+  // Print ROM
   for (int i = 0; i < rom_len; i++) {
     uint8_t r = gb->mem[i];
     printf("%02hhX ", r);
   }
-  printf("\n");
+  printf("\n\n");
+  #endif
 
   return 0;
 }
@@ -142,8 +144,10 @@ int perform_instruction(Gameboy *gb) {
   // Read current instruction
   uint8_t instr = pc_val(gb);
 
-  // DEBUG Print current memory location
+  #ifdef DEBUG
+  // Print current memory location
   printf("0x%04hhX: ", gb->PC);
+  #endif
 
   // Advance program counter
   gb->PC++;
@@ -169,8 +173,17 @@ int perform_instruction(Gameboy *gb) {
       break;
   }
 
-  // DEBUG Print instruction and arguments
-  printf("%02X %02X %02X\n", instr, args[0], args[1]);
+  #ifdef DEBUG
+  // Print instruction and arguments
+  printf("%02X ", instr);
+  for (int i = 0; i < 2; i++) {
+    int a = args[i];
+    if (a > 0) {
+      printf("%02X ", a);
+    }
+  }
+  printf("\n");
+  #endif
 
   // Check return message
   if (res > 0) {
