@@ -24,4 +24,14 @@ void _31_ld_sp_n16(uint16_t *sp, uint8_t *args) {
   #endif
 }
 
+// 0xAF XOR A
+void _af_xor_a(uint8_t *a) {
+  *a = *a ^ *a; 
+
+  #ifdef DEBUG
+  // Print instruction
+  printf("XOR A (A=%02X)\t", *a);
+  #endif
+}
+
 // -------- End of instructions definitions --------

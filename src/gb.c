@@ -167,6 +167,11 @@ int perform_instruction(Gameboy *gb) {
       _31_ld_sp_n16(&gb->SP, args);
       break;
 
+    // 0xAF XOR A
+    case 0xAF:
+      _af_xor_a(&gb->A);
+      break;
+
     // Default case, the instruction has not been defined.
     default:
       res = 1;
