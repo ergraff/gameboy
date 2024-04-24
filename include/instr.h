@@ -5,6 +5,6 @@
 
 // -------- Instructions prototypes --------
 // 0x31 LD SP,n16
-void _31_ld_sp_n16(uint16_t *sp, uint8_t *instr, uint8_t *args);
+void _31_ld_sp_n16(uint16_t *sp, uint8_t *args);
 
 // -------- End of instructions prototypes --------

@@ -164,7 +164,7 @@ int perform_instruction(Gameboy *gb) {
       gb->PC++;
       args[1] = pc_val(gb);
       gb->PC++;
-      _31_ld_sp_n16(&gb->SP, &instr, args);
+      _31_ld_sp_n16(&gb->SP, args);
       break;
 
     // Default case, the instruction has not been defined.
