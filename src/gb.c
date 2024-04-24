@@ -4,8 +4,6 @@
 #include <stdint.h>
 #endif
 
-#include "cpu.h"
-
 // -------- End of includes --------
  
 // -------- Memory definitions --------
@@ -64,17 +62,30 @@ typedef struct Gameboy {
   uint8_t mem[MEM_SIZE];
 
   /*
-    CPU
+    Registers
   */
-  CPU cpu;
+  uint8_t A;
+  uint8_t B;
+  uint8_t C;
+  uint8_t D;
+  uint8_t E;
+  uint8_t F;
+  uint8_t H;
+  uint8_t L;
+
+  /*
+    Pointers
+  */
+  uint16_t SP;
+  uint16_t PC;
 
 } Gameboy;
 
 // -------- End of Gameboy definitions --------
 
 // -------- Functions --------
-Gameboy gameboy_initialize() {
-  Gameboy gameboy = {{0}, cpu_initialize()};
+Gameboy initialize() {
+  Gameboy gameboy = {{0}, 0, 0, 0,0, 0, 0, 0, 0, 0, 0};
   return gameboy;
 }
 
@@ -111,4 +122,61 @@ int load_dmg_rom(Gameboy *gb) {
   return 0;
 }
 
+uint8_t read_op(Gameboy *gb) {
+  uint16_t addr = gb->PC;
+  uint8_t op = gb->mem[addr];
+  return op;
+}
 // -------- End of functions --------
+
+// -------- Instructions definitions --------
+void nop() {}
+
+void ld() {}
+void ldh() {}
+
+void ld_hl() {}
+void ld_sp() {}
+
+void add() {}
+void adc() {}
+void sub() {}
+void sbc() {}
+
+void inc() {}
+void dec() {}
+
+void and() {}
+void or() {}
+void xor() {}
+
+void cp() {}
+void cpl() {}
+
+void rla() {}
+void rlca() {}
+
+void rra() {}
+void rrca() {}
+
+void daa() {}
+
+void scf() {}
+
+void ccf() {}
+
+void stop() {}
+void halt() {}
+
+void jr() {}
+void jp() {}
+
+void call() {}
+void ret() {}
+
+void push() {}
+void pop() {}
+
+void rst() {}
+
+// -------- End of instructions definitions --------
