@@ -1,13 +1,13 @@
 // -------- Includes --------
-#ifndef STDINT_H
-#define STDINT_H
+#include <stdio.h>
 #include <stdint.h>
-#endif
+#include <stdlib.h>
+#include <string.h>
 
-#ifndef INSTR_H
-#define INSTR_H
 #include "instr.h"
-#endif
+#include "gb.h"
+
+#define DEBUG
 
 // -------- End of includes --------
  
@@ -91,8 +91,21 @@ typedef struct Gameboy {
 /*
   Returns a zeroed instance of the Gameboy struct
 */
-Gameboy initialize() {
-  Gameboy gameboy = {{0}, 0, 0, 0,0, 0, 0, 0, 0, 0, 0};
+Gameboy *initialize() {
+  Gameboy *gameboy = malloc(sizeof *gameboy);
+  if (gameboy) {
+    memset(gameboy->mem, 0, MEM_SIZE);
+    gameboy->A = 0;
+    gameboy->B = 0;
+    gameboy->C = 0;
+    gameboy->D = 0;
+    gameboy->E = 0;
+    gameboy->F = 0;
+    gameboy->H = 0;
+    gameboy->L = 0;
+    gameboy->SP = 0;
+    gameboy->PC = 0;
+  }
   return gameboy;
 }
 
@@ -105,7 +118,7 @@ int load_dmg_rom(Gameboy *gb) {
   uint8_t rom[256] = {0};
 
   // Open ROM
-  char *file = "./bin/DMG_ROM.bin";
+  char *file = "./DMG_ROM.bin";
   fptr = fopen(file, "rb");
   if (fptr == NULL) {
     printf("Could not read file '%s'\n", file);

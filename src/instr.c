@@ -1,8 +1,10 @@
 // -------- Includes --------
-#ifndef STDINT_H
-#define STDINT_H
+#include <stdio.h>
 #include <stdint.h>
-#endif
+
+#include "instr.h"
+
+#define DEBUG
 
 // -------- End of includes --------
 

@@ -1,5 +1,6 @@
 // -------- Includes --------
-#include "instr.c"
+#include <stdint.h>
+#include "gb.h"
 
 // -------- End of includes --------
 

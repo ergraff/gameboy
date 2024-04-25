@@ -1,20 +1,15 @@
 // -------- Includes --------
-#ifndef STDINT_H
-#define STDINT_H
 #include <stdint.h>
-#endif
-
-#include "gb.c"
 
 // -------- End of includes --------
 
 // -------- Gameboy prototype --------
-struct Gameboy;
+typedef struct Gameboy Gameboy;
 
 // -------- End of Gameboy prototype --------
 
 // -------- Function prototypes --------
-Gameboy initialize();
+Gameboy *initialize();
 int load_dmg_rom(Gameboy *gb);
 uint8_t current_instruction(Gameboy *gb);
 int perform_instruction(Gameboy *gb);

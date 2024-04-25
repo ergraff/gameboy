@@ -8,30 +8,30 @@ VALGRIND_LOG := valgrind-out.txt
 SRC_DIR := src
 INC_DIR := include
 BUILD_DIR := build
+BIN_DIR := bin
 
-CFLAGS := -o$(BUILD_DIR)/$(NAME) -I$(INC_DIR) -I$(SRC_DIR) -Wall
 
-
-# Labels
 all: build run
 
 build: .FORCE
-	$(CC) $(SRC_DIR)/$(MAIN) $(CFLAGS)
+	@$(CC) -c $(SRC_DIR)/gb.c -o $(BUILD_DIR)/gb.o -I$(INC_DIR)
+	@$(CC) -c $(SRC_DIR)/instr.c -o $(BUILD_DIR)/instr.o -I$(INC_DIR)
+	@$(CC) -c $(SRC_DIR)/main.c -o $(BUILD_DIR)/main.o -I$(INC_DIR)
+	@$(CC) $(BUILD_DIR)/main.o -o $(BIN_DIR)/$(NAME) $(BUILD_DIR)/gb.o $(BUILD_DIR)/instr.o -I$(INC_DIR) -Wall
+
 	
 run:
-	$(BUILD_DIR)/$(NAME)
-
-test:
+	@$(BIN_DIR)/$(NAME)
 
 check:
 	valgrind --leak-check=full \
 			 --show-leak-kinds=all \
 			 --track-origins=yes \
-			 $(BUILD_DIR)/$(NAME)
+			 $(BIN_DIR)/$(NAME)
 	
-.PHONY: clean
 clean:
-	rm $(BUILD_DIR)/$(NAME)
-	rm $(BUILD_DIR)/$(TESTS_NAME)
+	@rm $(BUILD_DIR)/*.o
+	@rm $(BIN_DIR)/$(NAME)
 
 .FORCE:
+.PHONY: clean
