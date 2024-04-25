@@ -150,10 +150,19 @@ int load_dmg_rom(Gameboy *gb) {
 /*
   Returns the value at the location of the current program counter
 */
-uint8_t pc_val(Gameboy *gb) {
+uint8_t get_pc_val(Gameboy *gb) {
   uint16_t addr = gb->PC;
   uint8_t op = gb->mem[addr];
   return op;
+}
+/*
+  Helper function to load two bytes into args and advance the program counter twice
+*/
+void get_n16(Gameboy *gb, uint8_t *args) {
+    args[0] = get_pc_val(gb);
+    gb->PC++;
+    args[1] = get_pc_val(gb);
+    gb->PC++;
 }
 
 /*
@@ -163,7 +172,7 @@ int perform_instruction(Gameboy *gb) {
   int res = 0;
 
   // Read current instruction
-  uint8_t instr = pc_val(gb);
+  uint8_t instr = get_pc_val(gb);
 
   #ifdef DEBUG
   // Print current memory location
@@ -181,19 +190,13 @@ int perform_instruction(Gameboy *gb) {
 
     // 0x21 LD HL,n16
     case 0x21:
-      args[0] = pc_val(gb);
-      gb->PC++;
-      args[1] = pc_val(gb);
-      gb->PC++;
+      get_n16(gb, args);
       _21_ld_hl_n16(&gb->H, &gb->L, args);
       break;
 
     // 0x31 LD SP,n16
     case 0x31:
-      args[0] = pc_val(gb);
-      gb->PC++;
-      args[1] = pc_val(gb);
-      gb->PC++;
+      get_n16(gb, args);
       _31_ld_sp_n16(&gb->SP, args);
       break;
 
@@ -238,7 +241,7 @@ int perform_instruction(Gameboy *gb) {
 */
 int run(Gameboy *gb) {
   // Read instructions until end
-  while (pc_val(gb) != 0) {
+  while (get_pc_val(gb) != 0) {
     // Perform instruction
     int res = perform_instruction(gb);
 
