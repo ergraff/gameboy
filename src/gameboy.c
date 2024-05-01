@@ -4,14 +4,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-#ifndef GB_H
-#define GB_H
-#include "gb.h"
+#ifndef GAMEBOY_H
+#define GAMEBOY_H
+#include "gameboy.h"
 #endif
 
-#ifndef INSTR_H
-#define INSTR_H
-#include "instr.h"
+#ifndef INSTRUCTIONS_H
+#define INSTRUCTIONS_H
+#include "instructions.h"
 #endif
 
 #ifndef INTERPRET_H

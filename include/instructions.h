@@ -1,9 +1,9 @@
 // -------- Includes --------
 #include <stdint.h>
 
-#ifndef GB_H
-#define GB_H
-#include "gb.h"
+#ifndef GAMEBOY_H
+#define GAMEBOY_H
+#include "gameboy.h"
 #endif
 
 // -------- End of includes --------

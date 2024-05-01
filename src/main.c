@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#ifndef GB_H
-#define GB_H
-#include "gb.h"
+#ifndef GAMEBOY_H
+#define GAMEBOY_H
+#include "gameboy.h"
 #endif
 
 int main(int argc, char **argv) {

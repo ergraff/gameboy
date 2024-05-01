@@ -2,14 +2,14 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#ifndef INSTR_H
-#define INSTR_H
-#include "instr.h"
+#ifndef INSTRUCTIONS_H
+#define INSTRUCTIONS_H
+#include "instructions.h"
 #endif
 
-#ifndef GB_H
-#define GB_H
-#include "gb.h"
+#ifndef GAMEBOY_H
+#define GAMEBOY_H
+#include "gameboy.h"
 #endif
 
 #define DEBUG
