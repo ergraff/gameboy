@@ -2,7 +2,10 @@
 #include <stdio.h>
 #include <stdint.h>
 
+#ifndef INSTR_H
+#define INSTR_H
 #include "instr.h"
+#endif
 
 #define DEBUG
 

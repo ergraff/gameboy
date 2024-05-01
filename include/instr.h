@@ -1,6 +1,10 @@
 // -------- Includes --------
 #include <stdint.h>
+
+#ifndef GB_H
+#define GB_H
 #include "gb.h"
+#endif
 
 // -------- End of includes --------
 
