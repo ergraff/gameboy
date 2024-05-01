@@ -14,6 +14,11 @@
 #include "instr.h"
 #endif
 
+#ifndef INTERPRET_H
+#define INTERPRET_H
+#include "interpret.h"
+#endif
+
 #define DEBUG
 
 // -------- End of includes --------
@@ -86,22 +91,11 @@ uint8_t get_pc_val(Gameboy *gb) {
   uint8_t op = gb->mem[addr];
   return op;
 }
-/*
-  Helper function to load two bytes into args and advance the program counter twice
-*/
-void get_n16(Gameboy *gb, uint8_t *args) {
-    args[0] = get_pc_val(gb);
-    gb->PC++;
-    args[1] = get_pc_val(gb);
-    gb->PC++;
-}
 
 /*
-  The function that reads and delegates the current instruction to their individual functions
+  The function that reads the current instruction and performs it
 */
 int perform_instruction(Gameboy *gb) {
-  int res = 0;
-
   // Read current instruction
   uint8_t instr = get_pc_val(gb);
 
@@ -113,51 +107,8 @@ int perform_instruction(Gameboy *gb) {
   // Advance program counter
   gb->PC++;
 
-  // Array to hold arguments
-  uint8_t args[2] = {0};
-
-  // Check instruction
-  switch (instr) {
-
-    // 0x21 LD HL,n16
-    case 0x21:
-      get_n16(gb, args);
-      _21_ld_hl_n16(gb, args);
-      break;
-
-    // 0x31 LD SP,n16
-    case 0x31:
-      get_n16(gb, args);
-      _31_ld_sp_n16(gb, args);
-      break;
-
-    // 0x32 LD [HL-],A
-    case 0x32:
-      _32_ld_hld_a(gb);
-      break;
-
-    // 0xAF XOR A
-    case 0xAF:
-      _af_xor_a(gb);
-      break;
-
-    // Default case, the instruction has not been defined.
-    default:
-      res = 1;
-      break;
-  }
-
-  #ifdef DEBUG
-  // Print instruction and arguments
-  printf("%02X ", instr);
-  for (int i = 0; i < 2; i++) {
-    int a = args[i];
-    if (a > 0) {
-      printf("%02X ", a);
-    }
-  }
-  printf("\n");
-  #endif
+  // Interpret instruction
+  int res = interpret(gb, instr);
 
   // Check return message
   if (res > 0) {

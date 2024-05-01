@@ -9,15 +9,18 @@ INC_DIR := include
 BUILD_DIR := build
 BIN_DIR := bin
 
+OBJS := $(BUILD_DIR)/gb.o $(BUILD_DIR)/instr.o $(BUILD_DIR)/interpret.o
 CCFLAGS := -Wall -Werror -Wpedantic
+
 
 all: build run
 
 build: .FORCE
-	@$(CC) -c $(SRC_DIR)/gb.c -o $(BUILD_DIR)/gb.o -I$(INC_DIR) $(CCFLAGS)
-	@$(CC) -c $(SRC_DIR)/instr.c -o $(BUILD_DIR)/instr.o -I$(INC_DIR) $(CCFLAGS)
-	@$(CC) -c $(SRC_DIR)/main.c -o $(BUILD_DIR)/main.o -I$(INC_DIR) $(CCFLAGS)
-	@$(CC) $(BUILD_DIR)/main.o -o $(BIN_DIR)/$(NAME) $(BUILD_DIR)/gb.o $(BUILD_DIR)/instr.o -I$(INC_DIR) $(CCFLAGS)
+	@$(CC) -c $(SRC_DIR)/gb.c        -o $(BUILD_DIR)/gb.o        -I$(INC_DIR) $(CCFLAGS)
+	@$(CC) -c $(SRC_DIR)/instr.c     -o $(BUILD_DIR)/instr.o     -I$(INC_DIR) $(CCFLAGS)
+	@$(CC) -c $(SRC_DIR)/interpret.c -o $(BUILD_DIR)/interpret.o -I$(INC_DIR) $(CCFLAGS)
+	@$(CC) -c $(SRC_DIR)/main.c      -o $(BUILD_DIR)/main.o      -I$(INC_DIR) $(CCFLAGS)
+	@$(CC)    $(BUILD_DIR)/main.o    -o $(BIN_DIR)/$(NAME)       -I$(INC_DIR) $(CCFLAGS) $(OBJS)
 
 	
 run:
