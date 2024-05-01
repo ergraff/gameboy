@@ -122,23 +122,23 @@ int perform_instruction(Gameboy *gb) {
     // 0x21 LD HL,n16
     case 0x21:
       get_n16(gb, args);
-      _21_ld_hl_n16(&gb->H, &gb->L, args);
+      _21_ld_hl_n16(gb, args);
       break;
 
     // 0x31 LD SP,n16
     case 0x31:
       get_n16(gb, args);
-      _31_ld_sp_n16(&gb->SP, args);
+      _31_ld_sp_n16(gb, args);
       break;
 
     // 0x32 LD [HL-],A
     case 0x32:
-      _32_ld_hld_a(gb->mem, &gb->H, &gb->L, &gb->A);
+      _32_ld_hld_a(gb);
       break;
 
     // 0xAF XOR A
     case 0xAF:
-      _af_xor_a(&gb->A);
+      _af_xor_a(gb);
       break;
 
     // Default case, the instruction has not been defined.
