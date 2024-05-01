@@ -121,7 +121,7 @@ int load_dmg_rom(Gameboy *gb) {
   char *file = "./DMG_ROM.bin";
   fptr = fopen(file, "rb");
   if (fptr == NULL) {
-    printf("Could not read file '%s'\n", file);
+    printf("gb.c:load_dmg_rom(): Could not read file '%s'\n", file);
     return 1;
   }
 
@@ -230,7 +230,7 @@ int perform_instruction(Gameboy *gb) {
 
   // Check return message
   if (res > 0) {
-    printf("Instruction '%02X' has not been defined!\n", instr);
+    printf("gb.c:perform_instruction(): Instruction '%02X' has not been defined!\n", instr);
   }
 
   return res;
@@ -248,7 +248,7 @@ int run(Gameboy *gb) {
     // Read return result
     if (res > 0) {
       // Something went wrong
-      printf("Something went wrong, exiting...\n");
+      printf("gb.c:run() Something went wrong, exiting...\n");
       break;
     }
   }
