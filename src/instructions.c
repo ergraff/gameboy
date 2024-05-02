@@ -16,7 +16,7 @@
 
 // -------- End of includes --------
 
-// -------- Instructions definitions --------
+// -------- Regular instructions definitions --------
 
 // 0x21 LD HL,n16
 void _21_ld_hl_n16(Gameboy *gb, uint8_t *args) {
@@ -69,4 +69,22 @@ void _af_xor_a(Gameboy *gb) {
   #endif
 }
 
-// -------- End of instructions definitions --------
+// -------- End of regular instructions definitions --------
+
+// -------- CB prefixed instructions definitions --------
+
+// 0x7C BIT 7,H
+void _cb_bit(uint8_t bit, uint8_t *r, uint8_t *f) {
+  uint8_t shift = 7 - bit;
+  uint8_t rr = ((*r << shift) & 128) ^ 128;
+  *f = (*f & 127) | rr;
+
+  #ifdef DEBUG
+  uint8_t c = (*r >> 7) & 1;
+  uint8_t z = (*f >> 7) & 1;
+  printf("BIT 7,H (!r[7]=%d, Z=%d)\t", c,  z);
+  #endif
+}
+
+
+// -------- End of CB prefixed instructions definitions --------

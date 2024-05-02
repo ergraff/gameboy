@@ -7,6 +7,11 @@
 #include "interpret.h"
 #endif
 
+#ifndef INTERPRET_CB_H
+#define INTERPRET_CB_H
+#include "interpret_cb.h"
+#endif
+
 #ifndef INSTRUCTIONS_H
 #define INSTRUCTIONS_H
 #include "instructions.h"
@@ -29,6 +34,14 @@ void get_n16(Gameboy *gb, uint8_t *args) {
     args[0] = gb->mem[gb->PC];
     gb->PC++;
     args[1] = gb->mem[gb->PC];
+    gb->PC++;
+}
+
+/*
+ Helper function to load next byte into args and advance the program counter
+*/
+void get_cb_instr(Gameboy *gb, uint8_t *args) {
+    args[0] = gb->mem[gb->PC];
     gb->PC++;
 }
 
@@ -60,6 +73,12 @@ int interpret(Gameboy *gb, uint8_t instr) {
     // 0xAF XOR A
     case 0xAF:
       _af_xor_a(gb);
+      break;
+
+    // 0xCB Prefixed operation, interpret separately
+    case 0xCB:
+      get_cb_instr(gb, args);
+      res = interpret_cb(gb, args[0]);
       break;
 
     // Default case, the instruction has not been defined.

@@ -9,7 +9,7 @@ INC_DIR := include
 BUILD_DIR := build
 BIN_DIR := bin
 
-OBJS := $(BUILD_DIR)/gameboy.o $(BUILD_DIR)/instructions.o $(BUILD_DIR)/interpret.o
+OBJS := $(BUILD_DIR)/gameboy.o $(BUILD_DIR)/instructions.o $(BUILD_DIR)/interpret.o $(BUILD_DIR)/interpret_cb.o
 CCFLAGS := -Wall -Werror -Wpedantic
 
 
@@ -19,6 +19,7 @@ build: .FORCE
 	@$(CC) -c $(SRC_DIR)/gameboy.c      -o $(BUILD_DIR)/gameboy.o      -I$(INC_DIR) $(CCFLAGS)
 	@$(CC) -c $(SRC_DIR)/instructions.c -o $(BUILD_DIR)/instructions.o -I$(INC_DIR) $(CCFLAGS)
 	@$(CC) -c $(SRC_DIR)/interpret.c    -o $(BUILD_DIR)/interpret.o    -I$(INC_DIR) $(CCFLAGS)
+	@$(CC) -c $(SRC_DIR)/interpret_cb.c -o $(BUILD_DIR)/interpret_cb.o -I$(INC_DIR) $(CCFLAGS)
 	@$(CC) -c $(SRC_DIR)/main.c         -o $(BUILD_DIR)/main.o         -I$(INC_DIR) $(CCFLAGS)
 	@$(CC)    $(BUILD_DIR)/main.o       -o $(BIN_DIR)/$(NAME)          -I$(INC_DIR) $(CCFLAGS) $(OBJS)
 

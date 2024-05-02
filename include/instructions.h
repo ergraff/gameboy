@@ -8,7 +8,7 @@
 
 // -------- End of includes --------
 
-// -------- Instructions prototypes --------
+// -------- Regular instructions prototypes --------
 // 0x21 LD HL,n16
 void _21_ld_hl_n16(Gameboy *gb, uint8_t *args);
 
@@ -21,4 +21,9 @@ void _32_ld_hld_a(Gameboy *gb);
 // 0xAF XOR A
 void _af_xor_a(Gameboy *gb);
 
-// -------- End of instructions prototypes --------
+// -------- End of regular instructions prototypes --------
+
+// -------- CB prefixed instructions prototypes --------
+
+// 0x7C BIT 7,H
+void _cb_bit(uint8_t bit, uint8_t *r, uint8_t *f);
