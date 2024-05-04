@@ -114,6 +114,17 @@ void _af_xor_a(Gameboy *gb) {
   #endif
 }
 
+// 0xE2 LD [0xFF00+C],A
+void _e2_ld_c_a(Gameboy *gb) {
+  gb->mem[0xFF00 + gb->C] = gb->A;
+
+  gb->t_state += 8;
+  
+  #ifdef DEBUG
+  printf("LD [0xFF00+C],A (C=%02X, A=%02X, *[0xFF00+C]=%02X)\t", gb->C, gb->A, gb->mem[0xFF00+gb->C]);
+  #endif
+}
+
 // -------- End of regular instructions definitions --------
 
 // -------- CB prefixed instructions definitions --------

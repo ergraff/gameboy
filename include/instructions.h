@@ -30,6 +30,9 @@ void _3e_ld_a_n8(Gameboy *gb, uint8_t *args);
 // 0xAF XOR A
 void _af_xor_a(Gameboy *gb);
 
+// 0xE2 LD [0xFF00+C],A
+void _e2_ld_c_a(Gameboy *gb);
+
 // -------- End of regular instructions prototypes --------
 
 // -------- CB prefixed instructions prototypes --------

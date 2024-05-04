@@ -107,6 +107,11 @@ int interpret(Gameboy *gb, uint8_t instr) {
       res = interpret_cb(gb, args[0]);
       break;
 
+    // 0xE2 LD [0xFF00+C],A
+    case 0xE2:
+      _e2_ld_c_a(gb);
+      break;
+
     // Default case, the instruction has not been defined.
     default:
       res = 1;
