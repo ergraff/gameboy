@@ -9,6 +9,9 @@
 // -------- End of includes --------
 
 // -------- Regular instructions prototypes --------
+// 0x0E LD C,n8
+void _0e_ld_c_n8(Gameboy *gb, uint8_t *args);
+
 // 0x20 JR NZ,e8
 void _20_jr_nz_e8(Gameboy *gb, uint8_t *args);
 

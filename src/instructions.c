@@ -18,6 +18,17 @@
 
 // -------- Regular instructions definitions --------
 
+// 0x0E LD C,n8
+void _0e_ld_c_n8(Gameboy *gb, uint8_t *args) {
+  gb->C = args[0];
+
+  gb->t_state += 8;
+
+  #ifdef DEBUG
+  printf("LD C,%02X (C=%02X)\t", args[0], gb->C);
+  #endif
+}
+
 // 0x20 JR NZ,e8
 void _20_jr_nz_e8(Gameboy *gb, uint8_t *args) {
   int8_t jump = (int8_t) args[0];
