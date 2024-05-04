@@ -11,7 +11,7 @@
 // -------- Function prototypes --------
 void load_two_byte(Gameboy *gb, uint8_t *args);
 void load_one_byte(Gameboy *gb, uint8_t *args);
-void get_cb_instr(Gameboy *gb, uint8_t *args);
+void load_cb_instr(Gameboy *gb, uint8_t *args);
 int interpret(Gameboy *gb, uint8_t instr);
 
 // -------- End of function prototypes --------

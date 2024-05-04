@@ -48,7 +48,7 @@ void load_one_byte(Gameboy *gb, uint8_t *args) {
 /*
  Helper function to load next byte into args and advance the program counter
 */
-void get_cb_instr(Gameboy *gb, uint8_t *args) {
+void load_cb_instr(Gameboy *gb, uint8_t *args) {
     args[0] = gb->mem[gb->PC];
     gb->PC++;
 }
@@ -91,7 +91,7 @@ int interpret(Gameboy *gb, uint8_t instr) {
 
     // 0xCB Prefixed operation, interpret separately
     case 0xCB:
-      get_cb_instr(gb, args);
+      load_cb_instr(gb, args);
       res = interpret_cb(gb, args[0]);
       break;
 
