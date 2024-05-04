@@ -101,6 +101,11 @@ int interpret(Gameboy *gb, uint8_t instr) {
       _3e_ld_a_n8(gb, args);
       break;
 
+    // 0x77 LD [HL],A
+    case 0x77:
+      _77_ld_hl_a(gb);
+      break;
+
     // 0xAF XOR A
     case 0xAF:
       _af_xor_a(gb);

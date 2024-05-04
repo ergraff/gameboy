@@ -30,6 +30,9 @@ void _32_ld_hld_a(Gameboy *gb);
 // 0x3E LD A,n8
 void _3e_ld_a_n8(Gameboy *gb, uint8_t *args);
 
+// 0x77 LD [HL],A
+void _77_ld_hl_a(Gameboy *gb);
+
 // 0xAF XOR A
 void _af_xor_a(Gameboy *gb);
 

@@ -113,6 +113,20 @@ void _3e_ld_a_n8(Gameboy *gb, uint8_t *args) {
   #endif
 } 
 
+// 0x77 LD [HL],A
+void _77_ld_hl_a(Gameboy *gb) {
+  uint16_t low = (uint16_t) gb->L;
+  uint16_t high = (uint16_t) gb->H;
+  uint16_t addr = (high << 8) | low;
+  gb->mem[addr] = gb->A;
+
+  gb->t_state += 8;
+  
+  #ifdef DEBUG
+  printf("LD [HL],A (*[HL]=%02X)\t", gb->mem[addr]);
+  #endif
+}
+
 // 0xAF XOR A
 void _af_xor_a(Gameboy *gb) {
   gb->A = gb->A ^ gb->A; 
