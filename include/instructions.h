@@ -36,6 +36,7 @@ void _e2_ld_c_a(Gameboy *gb);
 // -------- End of regular instructions prototypes --------
 
 // -------- CB prefixed instructions prototypes --------
-
 // 0x7C BIT 7,H
 void _cb_bit(uint8_t bit, uint8_t *r, uint8_t *f, uint32_t *t_state);
+
+// -------- End of CB prefixed instructions prototypes --------
