@@ -10,6 +10,7 @@
 
 // -------- Function prototypes --------
 void get_n16(Gameboy *gb, uint8_t *args);
+void get_e8(Gameboy *gb, uint8_t *args);
 void get_cb_instr(Gameboy *gb, uint8_t *args);
 int interpret(Gameboy *gb, uint8_t instr);
 

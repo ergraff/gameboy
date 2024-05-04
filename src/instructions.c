@@ -18,6 +18,18 @@
 
 // -------- Regular instructions definitions --------
 
+// 0x20 JR NZ,e8
+void _20_jr_nz_e8(Gameboy *gb, uint8_t *args) {
+  int8_t jump = (int8_t) args[0];
+  if ((gb->F & 128) == 0) {
+    gb->PC += jump;
+  }
+  
+  #ifdef DEBUG
+  printf("JR NZ,%d\t", jump);
+  #endif
+}
+
 // 0x21 LD HL,n16
 void _21_ld_hl_n16(Gameboy *gb, uint8_t *args) {
   uint8_t low = args[0];

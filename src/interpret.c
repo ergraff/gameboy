@@ -38,6 +38,14 @@ void get_n16(Gameboy *gb, uint8_t *args) {
 }
 
 /*
+  Helper function to load one byte into args and advance the program counter
+*/
+void get_e8(Gameboy *gb, uint8_t *args) {
+    args[0] = gb->mem[gb->PC];
+    gb->PC++;
+}
+
+/*
  Helper function to load next byte into args and advance the program counter
 */
 void get_cb_instr(Gameboy *gb, uint8_t *args) {
@@ -53,6 +61,12 @@ int interpret(Gameboy *gb, uint8_t instr) {
   uint8_t args[2] = {0};
 
   switch (instr) {
+    // 0x20 JR NZ,e8
+    case 0x20:
+      get_e8(gb, args);
+      _20_jr_nz_e8(gb, args);
+      break;
+
     // 0x21 LD HL,n16
     case 0x21:
       get_n16(gb, args);
