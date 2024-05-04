@@ -53,6 +53,20 @@ void _11_ld_de_n16(Gameboy *gb, uint8_t *args) {
   #endif
 }
 
+// 0x1A LD A,[DE]
+void _1a_ld_a_de(Gameboy *gb) {
+  uint16_t low = (uint16_t) gb->E;
+  uint16_t high = (uint16_t) gb->D;
+  uint16_t addr = (high << 8) | low;
+  gb->A = gb->mem[addr];
+
+  gb->t_state += 8;
+
+  #ifdef DEBUG
+  printf("LD A,[DE] (A=%02X, *[DE]=%02X)\t", gb->A, gb->mem[addr]);
+  #endif
+}
+
 // 0x20 JR NZ,e8
 void _20_jr_nz_e8(Gameboy *gb, uint8_t *args) {
   int8_t jump = (int8_t) args[0];

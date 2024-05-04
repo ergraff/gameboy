@@ -77,6 +77,11 @@ int interpret(Gameboy *gb, uint8_t instr) {
       load_two_byte(gb, args);
       _11_ld_de_n16(gb, args);
       break;
+
+    // 0x1A LD A,[DE]
+    case 0x1A:
+      _1a_ld_a_de(gb);
+      break;
       
     // 0x20 JR NZ,e8
     case 0x20:
