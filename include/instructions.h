@@ -15,6 +15,9 @@ void _0c_inc_c(Gameboy *gb);
 // 0x0E LD C,n8
 void _0e_ld_c_n8(Gameboy *gb, uint8_t *args);
 
+// 0x11 LD DE,n16
+void _11_ld_de_n16(Gameboy *gb, uint8_t *args);
+
 // 0x20 JR NZ,e8
 void _20_jr_nz_e8(Gameboy *gb, uint8_t *args);
 

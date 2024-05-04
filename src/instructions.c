@@ -39,6 +39,20 @@ void _0e_ld_c_n8(Gameboy *gb, uint8_t *args) {
   #endif
 }
 
+// 0x11 LD DE,n16
+void _11_ld_de_n16(Gameboy *gb, uint8_t *args) {
+  uint8_t low = args[0];
+  uint8_t high = args[1];
+  gb->D = high;
+  gb->E = low;
+
+  gb->t_state += 12;
+
+  #ifdef DEBUG
+  printf("LD DE,%02X%02X (DE=%02X%02X)\t", high, low, gb->D, gb->E);
+  #endif
+}
+
 // 0x20 JR NZ,e8
 void _20_jr_nz_e8(Gameboy *gb, uint8_t *args) {
   int8_t jump = (int8_t) args[0];
