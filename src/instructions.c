@@ -23,6 +23,9 @@ void _20_jr_nz_e8(Gameboy *gb, uint8_t *args) {
   int8_t jump = (int8_t) args[0];
   if ((gb->F & 128) == 0) {
     gb->PC += jump;
+    gb->t_state += 12;
+  } else {
+    gb->t_state += 8;
   }
   
   #ifdef DEBUG
@@ -37,6 +40,8 @@ void _21_ld_hl_n16(Gameboy *gb, uint8_t *args) {
   gb->H = high;
   gb->L = low;
 
+  gb->t_state += 12;
+
   #ifdef DEBUG
   printf("LD HL,%02X%02X (HL=%02X%02X)\t", high, low, gb->H, gb->L);
   #endif
@@ -48,6 +53,8 @@ void _31_ld_sp_n16(Gameboy *gb, uint8_t *args) {
   uint16_t b = (uint16_t) args[1];
   uint16_t arg = (b << 8) | a;
   gb->SP = arg;
+
+  gb->t_state += 12;
 
   #ifdef DEBUG
   printf("LD SP,%04X (SP=%04X)\t", arg, gb->SP);
@@ -67,6 +74,8 @@ void _32_ld_hld_a(Gameboy *gb) {
   gb->H = high_new;
   gb->L = low_new;
 
+  gb->t_state += 8;
+
   #ifdef DEBUG
   printf("LD [HL-],A (*[HL]=%02X, HL:%04X->%04X, H=%02X, L=%02X)\t", gb->mem[addr], addr, addr_new, gb->H, gb->L);
   #endif  
@@ -75,6 +84,8 @@ void _32_ld_hld_a(Gameboy *gb) {
 // 0xAF XOR A
 void _af_xor_a(Gameboy *gb) {
   gb->A = gb->A ^ gb->A; 
+
+  gb->t_state += 4;
 
   #ifdef DEBUG
   printf("XOR A (A=%02X)\t", gb->A);
@@ -86,10 +97,12 @@ void _af_xor_a(Gameboy *gb) {
 // -------- CB prefixed instructions definitions --------
 
 // 0x7C BIT 7,H
-void _cb_bit(uint8_t bit, uint8_t *r, uint8_t *f) {
+void _cb_bit(uint8_t bit, uint8_t *r, uint8_t *f, uint32_t *t_state) {
   uint8_t shift = 7 - bit;
   uint8_t rr = ((*r << shift) & 128) ^ 128;
   *f = (*f & 127) | rr;
+
+  *t_state += 8;
 
   #ifdef DEBUG
   uint8_t c = (*r >> 7) & 1;

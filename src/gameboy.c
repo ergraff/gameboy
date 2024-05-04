@@ -30,6 +30,7 @@
 Gameboy *initialize() {
   Gameboy *gameboy = malloc(sizeof *gameboy);
   if (gameboy) {
+    gameboy->t_state = 0;
     memset(gameboy->mem, 0, MEM_SIZE);
     gameboy->A = 0;
     gameboy->B = 0;

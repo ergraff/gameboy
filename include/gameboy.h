@@ -53,6 +53,11 @@
 */
 typedef struct Gameboy {
   /*
+    System clock tick
+  */
+  uint32_t t_state;
+
+  /*
     Memory
   */
   uint8_t mem[MEM_SIZE];
