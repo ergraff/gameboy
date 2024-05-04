@@ -17,6 +17,16 @@
 // -------- End of includes --------
 
 // -------- Regular instructions definitions --------
+// 0x0C INC C
+void _0c_inc_c(Gameboy *gb) {
+  gb->C += 1;
+
+  gb->t_state += 4;
+
+  #ifdef DEBUG
+  printf("INC C (C:%02X->%02X)\t", gb->C-1, gb->C);
+  #endif
+}
 
 // 0x0E LD C,n8
 void _0e_ld_c_n8(Gameboy *gb, uint8_t *args) {

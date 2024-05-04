@@ -61,6 +61,11 @@ int interpret(Gameboy *gb, uint8_t instr) {
   uint8_t args[2] = {0};
 
   switch (instr) {
+    // 0x0C INC C
+    case 0x0C:
+      _0c_inc_c(gb);
+      break;
+
     // 0x0E JR NZ,e8
     case 0x0E:
       load_one_byte(gb, args);
