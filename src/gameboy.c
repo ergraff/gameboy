@@ -86,7 +86,7 @@ int load_dmg_rom(Gameboy *gb) {
 /*
   Returns the value at the location of the current program counter
 */
-uint8_t get_pc_val(Gameboy *gb) {
+uint8_t read_op(Gameboy *gb) {
   uint16_t addr = gb->PC;
   uint8_t op = gb->mem[addr];
   return op;
@@ -97,7 +97,7 @@ uint8_t get_pc_val(Gameboy *gb) {
 */
 int perform_instruction(Gameboy *gb) {
   // Read current instruction
-  uint8_t instr = get_pc_val(gb);
+  uint8_t instr = read_op(gb);
 
   #ifdef DEBUG
   // Print current memory location
@@ -123,7 +123,7 @@ int perform_instruction(Gameboy *gb) {
 */
 int run(Gameboy *gb) {
   // Read instructions until end
-  while (get_pc_val(gb) != 0) {
+  while (read_op(gb) != 0) {
     // Perform instruction
     int res = perform_instruction(gb);
 
