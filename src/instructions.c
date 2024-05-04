@@ -92,6 +92,17 @@ void _32_ld_hld_a(Gameboy *gb) {
   #endif  
 }
 
+// 0x3E LD A,n8
+void _3e_ld_a_n8(Gameboy *gb, uint8_t *args) {
+  gb->A = args[0];
+
+  gb->t_state += 8;
+
+  #ifdef DEBUG
+  printf("LD A,%02X (A=%02X)\t", args[0], gb->A);
+  #endif
+} 
+
 // 0xAF XOR A
 void _af_xor_a(Gameboy *gb) {
   gb->A = gb->A ^ gb->A; 

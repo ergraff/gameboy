@@ -90,6 +90,12 @@ int interpret(Gameboy *gb, uint8_t instr) {
       _32_ld_hld_a(gb);
       break;
 
+    // 0x3E LD A,n8
+    case 0x3E:
+      load_one_byte(gb, args);
+      _3e_ld_a_n8(gb, args);
+      break;
+
     // 0xAF XOR A
     case 0xAF:
       _af_xor_a(gb);
