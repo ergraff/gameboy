@@ -117,6 +117,12 @@ int interpret(Gameboy *gb, uint8_t instr) {
       res = interpret_cb(gb, args[0]);
       break;
 
+    // 0xE0 LDH [0xFF00+a8],A
+    case 0xE0:
+      load_one_byte(gb, args);
+      _e0_ld_a8_a(gb, args);
+      break;
+
     // 0xE2 LD [0xFF00+C],A
     case 0xE2:
       _e2_ld_c_a(gb);

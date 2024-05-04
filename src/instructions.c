@@ -138,6 +138,18 @@ void _af_xor_a(Gameboy *gb) {
   #endif
 }
 
+// 0xE0 LD [0xFF00+a8],A
+void _e0_ld_a8_a(Gameboy *gb, uint8_t *args) {
+  uint16_t addr = 0xFF00 + (uint16_t) args[0]; 
+  gb->mem[addr] = gb->A;
+
+  gb->t_state += 12;
+
+  #ifdef DEBUG
+  printf("LD [0xFF00+0x%02X],A (A=%02X, *[0xFF00+0x%02X=%02X])\t", args[0], gb->A, args[0], gb->mem[addr]);
+  #endif
+}
+
 // 0xE2 LD [0xFF00+C],A
 void _e2_ld_c_a(Gameboy *gb) {
   gb->mem[0xFF00 + gb->C] = gb->A;

@@ -36,6 +36,9 @@ void _77_ld_hl_a(Gameboy *gb);
 // 0xAF XOR A
 void _af_xor_a(Gameboy *gb);
 
+// 0xE0 LD [0xFF00+a8],A
+void _e0_ld_a8_a(Gameboy *gb, uint8_t *args);
+
 // 0xE2 LD [0xFF00+C],A
 void _e2_ld_c_a(Gameboy *gb);
 
