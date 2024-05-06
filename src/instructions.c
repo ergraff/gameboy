@@ -166,6 +166,41 @@ void _af_xor_a(Gameboy *gb) {
   #endif
 }
 
+// 0xCD CALL a16
+int _cd_call_a16(Gameboy *gb, uint8_t *args) {
+  // Overflow guard
+  if (gb->SP <= 0xFF81) {
+    printf("SP: %04X\n", gb->SP);
+    return 2;
+  }
+
+  // Push PC to stack
+  uint8_t pc_low = (uint8_t) gb->PC;
+  uint8_t pc_high = (uint8_t) (gb->PC >> 8);
+  gb->SP--;
+  gb->mem[gb->SP] = pc_high;
+  gb->SP--;
+  gb->mem[gb->SP] = pc_low;
+
+  // Set new PC
+  uint16_t pc_old = gb->PC;
+  uint8_t arg_low = args[0];
+  uint8_t arg_high = args[1];
+  uint16_t pc_new_low = (uint16_t) arg_low;
+  uint16_t pc_new_high = (uint16_t) arg_high << 8;
+  uint16_t pc_new = pc_new_high | pc_new_low;
+  gb->PC = pc_new;
+
+  gb->t_state += 24;
+  
+  #ifdef DEBUG
+  printf("CALL %02X%02X (SP=%04X, *[SP]=%02X, *[SP+1]=%02X, PC=%04X->%04X)\t", \
+         arg_high, arg_low, gb->SP, gb->mem[gb->SP], gb->mem[gb->SP+1], pc_old, gb->PC);
+  #endif
+
+  return 0;
+}
+
 // 0xE0 LD [0xFF00+a8],A
 void _e0_ld_a8_a(Gameboy *gb, uint8_t *args) {
   uint16_t addr = 0xFF00 + (uint16_t) args[0]; 

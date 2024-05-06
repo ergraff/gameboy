@@ -40,7 +40,7 @@ Gameboy *initialize() {
     gameboy->F = 0;
     gameboy->H = 0;
     gameboy->L = 0;
-    gameboy->SP = 0;
+    gameboy->SP = 0xFF80;
     gameboy->PC = 0;
   }
   return gameboy;
@@ -118,6 +118,7 @@ int perform_instruction(Gameboy *gb) {
       printf("gb.c:perform_instruction(): Instruction '%02X' has not been defined!\n", instr);
       break;
     case 2:
+      printf("gb.c:perform_instruction(): Stack would overflow (SP=%04X)!\n", gb->SP);
       break;
   }
 
@@ -137,7 +138,7 @@ int run(Gameboy *gb) {
   // TODO: If more errors are added then separate to other file
     if (res > 0) {
       // Something went wrong
-      printf("gb.c:run(): Exiting...\n");
+      printf("gb.c:run(): Error encountered, exiting...\n");
       break;
     }
   }
