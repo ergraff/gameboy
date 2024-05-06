@@ -34,3 +34,5 @@ int interpret_cb(Gameboy *gb, uint8_t instr) {
   }
   return 0;
 }
+
+// -------- End of functions --------

@@ -112,8 +112,13 @@ int perform_instruction(Gameboy *gb) {
   int res = interpret(gb, instr);
 
   // Check return message
-  if (res > 0) {
-    printf("gb.c:perform_instruction(): Instruction '%02X' has not been defined!\n", instr);
+  // TODO: If more errors are added then separate to other file
+  switch (res) {
+    case 1:
+      printf("gb.c:perform_instruction(): Instruction '%02X' has not been defined!\n", instr);
+      break;
+    case 2:
+      break;
   }
 
   return res;
@@ -129,9 +134,10 @@ int run(Gameboy *gb) {
     int res = perform_instruction(gb);
 
     // Read return result
+  // TODO: If more errors are added then separate to other file
     if (res > 0) {
       // Something went wrong
-      printf("gb.c:run() Something went wrong, exiting...\n");
+      printf("gb.c:run(): Exiting...\n");
       break;
     }
   }
