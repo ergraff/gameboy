@@ -47,15 +47,11 @@ Gameboy *initialize() {
   if (gameboy) {
     gameboy->t_state = 0;
     memset(gameboy->mem, 0, MEM_SIZE);
-    gameboy->A = 0;
-    gameboy->B = 0;
-    gameboy->C = 0;
-    gameboy->D = 0;
-    gameboy->E = 0;
-    gameboy->F = 0;
-    gameboy->H = 0;
-    gameboy->L = 0;
-    gameboy->SP = 0xFF80;
+    gameboy->AF = 0;
+    gameboy->BC = 0;
+    gameboy->DE = 0;
+    gameboy->HL = 0;
+    gameboy->SP = 0xFFFF;
     gameboy->PC = 0;
   }
   return gameboy;

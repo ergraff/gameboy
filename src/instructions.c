@@ -27,7 +27,6 @@
 // 0x0C INC C
 void _0c_inc_c(Gameboy *gb) {
   gb->C += 1;
-
   gb->t_state += 4;
 
   #ifdef DEBUG
@@ -38,7 +37,6 @@ void _0c_inc_c(Gameboy *gb) {
 // 0x0E LD C,n8
 void _0e_ld_c_n8(Gameboy *gb, uint8_t *args) {
   gb->C = args[0];
-
   gb->t_state += 8;
 
   #ifdef DEBUG
@@ -52,7 +50,6 @@ void _11_ld_de_n16(Gameboy *gb, uint8_t *args) {
   uint8_t high = args[1];
   gb->D = high;
   gb->E = low;
-
   gb->t_state += 12;
 
   #ifdef DEBUG
@@ -62,15 +59,11 @@ void _11_ld_de_n16(Gameboy *gb, uint8_t *args) {
 
 // 0x1A LD A,[DE]
 void _1a_ld_a_de(Gameboy *gb) {
-  uint16_t low = (uint16_t) gb->E;
-  uint16_t high = (uint16_t) gb->D;
-  uint16_t addr = (high << 8) | low;
-  gb->A = gb->mem[addr];
-
+  gb->A = gb->mem[gb->DE];
   gb->t_state += 8;
 
   #ifdef DEBUG
-  printf("LD A,[DE] (A=%02X, *[DE]=%02X)\t", gb->A, gb->mem[addr]);
+  printf("LD A,[DE] (A=%02X, *[DE]=%02X)\t", gb->A, gb->mem[gb->DE]);
   #endif
 }
 
@@ -95,7 +88,6 @@ void _21_ld_hl_n16(Gameboy *gb, uint8_t *args) {
   uint8_t high = args[1];
   gb->H = high;
   gb->L = low;
-
   gb->t_state += 12;
 
   #ifdef DEBUG
@@ -109,7 +101,6 @@ void _31_ld_sp_n16(Gameboy *gb, uint8_t *args) {
   uint16_t b = (uint16_t) args[1];
   uint16_t arg = (b << 8) | a;
   gb->SP = arg;
-
   gb->t_state += 12;
 
   #ifdef DEBUG
@@ -119,28 +110,18 @@ void _31_ld_sp_n16(Gameboy *gb, uint8_t *args) {
 
 // 0x32 LD [HL-],A
 void _32_ld_hld_a(Gameboy *gb) {
-  uint16_t low = (uint16_t) gb->L;
-  uint16_t high = (uint16_t) gb->H;
-  uint16_t addr = (high << 8) | low;
-  gb->mem[addr] = gb->A;
-
-  uint16_t addr_new = addr - 1;
-  uint8_t low_new = (uint8_t) addr_new;
-  uint8_t high_new = (uint8_t) (addr_new >> 8);
-  gb->H = high_new;
-  gb->L = low_new;
-
+  gb->mem[gb->HL] = gb->A;
+  gb->HL -= 1;
   gb->t_state += 8;
 
   #ifdef DEBUG
-  printf("LD [HL-],A (*[HL]=%02X, HL:%04X->%04X, H=%02X, L=%02X)\t", gb->mem[addr], addr, addr_new, gb->H, gb->L);
+  printf("LD [HL-],A (*[HL]=%02X, HL:%04X->%04X, HL=%04X)\t", gb->mem[gb->HL], gb->HL+1, gb->HL, gb->HL);
   #endif  
 }
 
 // 0x3E LD A,n8
 void _3e_ld_a_n8(Gameboy *gb, uint8_t *args) {
   gb->A = args[0];
-
   gb->t_state += 8;
 
   #ifdef DEBUG
@@ -150,22 +131,17 @@ void _3e_ld_a_n8(Gameboy *gb, uint8_t *args) {
 
 // 0x77 LD [HL],A
 void _77_ld_hl_a(Gameboy *gb) {
-  uint16_t low = (uint16_t) gb->L;
-  uint16_t high = (uint16_t) gb->H;
-  uint16_t addr = (high << 8) | low;
-  gb->mem[addr] = gb->A;
-
+  gb->mem[gb->HL] = gb->A;
   gb->t_state += 8;
   
   #ifdef DEBUG
-  printf("LD [HL],A (*[HL]=%02X)\t", gb->mem[addr]);
+  printf("LD [HL],A (*[HL]=%02X)\t", gb->mem[gb->HL]);
   #endif
 }
 
 // 0xAF XOR A
 void _af_xor_a(Gameboy *gb) {
   gb->A = gb->A ^ gb->A; 
-
   gb->t_state += 4;
 
   #ifdef DEBUG
@@ -212,7 +188,6 @@ int _cd_call_a16(Gameboy *gb, uint8_t *args) {
 void _e0_ld_a8_a(Gameboy *gb, uint8_t *args) {
   uint16_t addr = 0xFF00 + (uint16_t) args[0]; 
   gb->mem[addr] = gb->A;
-
   gb->t_state += 12;
 
   #ifdef DEBUG
@@ -222,12 +197,12 @@ void _e0_ld_a8_a(Gameboy *gb, uint8_t *args) {
 
 // 0xE2 LD [0xFF00+C],A
 void _e2_ld_c_a(Gameboy *gb) {
-  gb->mem[0xFF00 + gb->C] = gb->A;
-
+  uint16_t addr = 0xFF00 + gb->C;
+  gb->mem[addr] = gb->A;
   gb->t_state += 8;
   
   #ifdef DEBUG
-  printf("LD [0xFF00+C],A (C=%02X, A=%02X, *[0xFF00+C]=%02X)\t", gb->C, gb->A, gb->mem[0xFF00+gb->C]);
+  printf("LD [0xFF00+C],A (C=%02X, A=%02X, *[0xFF00+C]=%02X)\t", gb->C, gb->A, gb->mem[addr]);
   #endif
 }
 
@@ -240,7 +215,6 @@ void _cb_bit(uint8_t bit, uint8_t *r, uint8_t *f, uint32_t *t_state) {
   uint8_t shift = 7 - bit;
   uint8_t rr = ((*r << shift) & 128) ^ 128;
   *f = (*f & 127) | rr;
-
   *t_state += 8;
 
   #ifdef DEBUG
