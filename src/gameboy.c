@@ -1,8 +1,23 @@
 // -------- Includes --------
+#ifndef STDIO_H
+#define STDIO_H
 #include <stdio.h>
+#endif
+
+#ifndef STDINT_H
+#define STDINT_H
 #include <stdint.h>
+#endif
+
+#ifndef STDLIB_H
+#define STDLIB_H
 #include <stdlib.h>
+#endif
+
+#ifndef STRING_H
+#define STRING_H
 #include <string.h>
+#endif
 
 #ifndef GAMEBOY_H
 #define GAMEBOY_H

@@ -1,6 +1,13 @@
 // -------- Includes --------
+#ifndef STDINT_H
+#define STDINT_H
 #include <stdint.h>
+#endif
+
+#ifndef STDIO_H
+#define STDIO_H
 #include <stdio.h>
+#endif
 
 #ifndef INTERPRET_H
 #define INTERPRET_H
